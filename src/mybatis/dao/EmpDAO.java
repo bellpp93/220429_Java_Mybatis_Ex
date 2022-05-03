@@ -1,6 +1,8 @@
 package mybatis.dao;
 
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -19,5 +21,44 @@ public class EmpDAO {
 		ss.close();
 		
 		return list;
-	}
+	}  // End getTotal() 메소드 =============================================================
+	
+	public static int add(String empno, String ename, String dept, String position) {
+		Map<String, String> map = new Hashtable<String, String>();
+		
+		map.put("empno", empno);
+		map.put("ename", ename);
+		map.put("dept", dept);
+		map.put("position", position);
+		
+		SqlSession ss = FactoryService.getFactory().openSession(true);  // true는 commit과 같은 역할(table에 변화를 주는 DML 작업에만 적용)
+		int cnt = ss.insert("emp.add", map);
+		ss.close();
+		return cnt;
+	}  // End add() 메소드 ==================================================================
+	
+	public static int update(String empno, String ename, String dept, String position) {
+		Map<String, String> map = new Hashtable<String, String>();
+		
+		map.put("empno", empno);
+		map.put("ename", ename);
+		map.put("dept", dept);
+		map.put("position", position);
+		
+		SqlSession ss = FactoryService.getFactory().openSession(true);  // true는 commit과 같은 역할(table에 변화를 주는 DML 작업에만 적용)
+		int cnt = ss.update("emp.update", map);
+		ss.close();
+		return cnt;
+	}  // End update() 메소드 ===============================================================
+	
+	public static int delete(String empno) {
+		Map<String, String> map = new Hashtable<String, String>();
+		
+		map.put("empno", empno);
+		
+		SqlSession ss = FactoryService.getFactory().openSession(true);  // true는 commit과 같은 역할(table에 변화를 주는 DML 작업에만 적용)
+		int cnt = ss.delete("emp.delete", map);
+		ss.close();
+		return cnt;
+	}  // End delete() 메소드 ===============================================================
 }
