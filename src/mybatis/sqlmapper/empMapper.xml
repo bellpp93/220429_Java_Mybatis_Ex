@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mybatis Mapper 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="emp">
+	<select id="total" resultType="mybatis.vo.EmpVO">
+		SELECT empno, ename, dept, position FROM emp_tab
+	</select>
+	
+	<insert id="add" parameterType="java.util.Map">
+		INSERT INTO emp_tab(empno, ename, dept, position) VALUES(#{empno},#{ename},#{dept},#{position})
+	</insert>
+	
+	<update id="update" parameterType="java.util.Map">
+		UPDATE emp_tab SET ename=#{ename}, dept=#{dept}, position=#{position} WHERE empno=#{empno}
+	</update>
+	
+	<delete id="delete" parameterType="java.util.Map">
+		DELETE FROM emp_tab WHERE empno=#{empno}
+	</delete>
+</mapper>
